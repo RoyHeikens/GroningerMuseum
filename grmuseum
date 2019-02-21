@@ -1,0 +1,152 @@
+
+<html>
+<head>
+<title>Groninger Museum Energiestromen</title>
+</head>
+<script id="false" type="text/javascript">
+var attempt = 3; // Variable to count number of attempts.
+// Below function Executes on click of login button.
+function validate(){
+var username = document.getElementById("username").value;
+var password = document.getElementById("password").value;
+if ( username == "GrMuseum" && password == "Energie2019"){
+myFunction() 
+showDiv()
+return false;
+}
+else{
+attempt --;// Decrementing by one.
+alert("U heeft nog "+attempt+" pogingen;");
+// Disabling fields after 3 attempts.
+if( attempt == 0){
+document.getElementById("username").disabled = true;
+document.getElementById("password").disabled = true;
+document.getElementById("submit").disabled = true;
+return false;
+}
+}
+}
+</script>
+<script> 
+function myFunction() {
+
+  var x = document.getElementById("myDiv");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+function showDiv() {
+   document.getElementById('sankey_basic').style.display = "block";
+}
+</script>
+
+<body>
+<p>
+<div id="myDiv">
+<div class="container">
+<div class="main">
+<p style="text-align:center;">
+<img src="https://yt3.ggpht.com/a-/AAuE7mB3e4DqTDEdh8hr79GbAUXnnTKMdEkkjJgmcg=s288-mo-c-c0xffffffff-rj-k-no">
+</p>
+<form id="form_id" align="middle" method="post" name="myform">
+<label style="font-family:verdana;font-size:18pt">Gebruikersnaam :</label>
+<br>
+<input type="text" style="font-size:18pt" name="username" id="username"/>
+<br>
+<br>
+<label style="font-family:verdana; font-size:18pt">	Wachtwoord :</label>
+<br>
+<input style="font-size:18pt" type="password" name="password" id="password"/>
+<br>
+<br>
+<input type="button" value="Inloggen" style="font-size:18pt" id="submit" onclick="validate()"/>
+</form>
+</div>
+</div>
+</div>
+</p>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {
+  'packages': ['sankey']
+});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'van');
+  data.addColumn('string', 'naar');
+  data.addColumn('number', 'Energiestroom [GJ]');
+  data.addRows([
+    ['Totale energie', 'Gas', 3938.22],
+    ['Gas', 'Ketel 1&2', 3938.22],
+    ['Ketel 1&2', 'Verwarming', 3741.35],
+    ['Ketel 1&2', 'Verlies', 196.91],
+    ['Verwarming', 'radiatoren', 900],
+    ['Verwarming', 'Na-&vloerverwarming', 450],
+    ['Verwarming', 'leidingen', 82.31],
+    ['Verwarming', 'luchtverwarming', 2309],
+    ['luchtverwarming', 'LBK Oost', 400],
+    ['luchtverwarming', 'LBK Midden', 846],
+    ['luchtverwarming', 'LBK West', 1063],
+    ['Totale energie', 'Elektriciteit', 4702.13],
+    ['Elektriciteit', 'Koeling', 878],
+    ['Koeling', 'vloerkoeling', 100],
+    ['Koeling', 'luchtkoeling/ontvochtiging', 778],
+    ['luchtkoeling/ontvochtiging', 'LBK Oost', 302],
+    ['luchtkoeling/ontvochtiging', 'LBK Midden', 344],
+    ['luchtkoeling/ontvochtiging', 'LBK West', 132],
+    ['Elektriciteit', 'LBK Ventilatie', 1118],
+    ['LBK Ventilatie', 'LBK Oost', 314],
+    ['LBK Ventilatie', 'LBK Midden', 664],
+    ['LBK Ventilatie', 'LBK West', 140],
+    ['Elektriciteit', 'Lampen', 1163.91],
+    ['Elektriciteit', 'LBK Stoombevochtiger', 720],
+    ['Elektriciteit', 'eigen gebruik', 822.22],
+    ['LBK Stoombevochtiger', 'LBK Oost', 235],
+    ['LBK Stoombevochtiger', 'LBK Midden', 211],
+    ['LBK Stoombevochtiger', 'LBK West', 274],
+
+  ]);
+  //var colors = ['#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
+  //        '#cab2d6', '#ffff99', '#1f78b4', '#33a02c','#d6b2b2','#b2d6b2'];
+  // Sets chart options.
+  var options = {
+    width: window.innerWidth-50,
+    height: window.innerHeight-50,
+
+    sankey: {
+      iterations: 0,
+      link: {
+        colorMode: 'target',
+        color: {
+          stroke: 'black',
+          strokeWidth: 0
+        },
+      },
+
+      node: {
+        width: 15,
+        nodePadding: 30,
+        label: {
+          fontName: 'Arial',
+          fontSize: 20,
+          color: 'Black',
+          bold: false,
+          labelPadding: 0,
+        },
+      },
+    },
+  };
+
+  // Instantiates and draws our chart, passing in some options. https://developers.google.com/chart/interactive/docs/gallery/sankey
+  var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
+  chart.draw(data, options);
+}
+
+</script>
+<div id="sankey_basic" style="width: window.innerWidth-50; height: window.innerHeight-100; display: none;"></div>
+</body>
+</html>
